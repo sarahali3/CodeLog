@@ -1,0 +1,75 @@
+Create table Employees
+(
+     ID int primary key AUTO_increment,
+     FirstName nvarchar(50),
+     LastName nvarchar(50),
+     Gender nvarchar(50),
+     Salary int
+)
+
+INSERT INTO Employees (FirstName, LastName, Gender, Salary)
+VALUE
+('Ben', 'Hoskins', 'Male', 70000),
+('Mark', 'Hastings', 'Male', 60000),
+('Steve', 'Pound', 'Male', 45000),
+('Ben', 'Hoskins', 'Male', 70000),
+('Philip', 'Hastings', 'Male', 45000),
+('Mary', 'Lambeth', 'Female', 30000),
+('Valarie', 'Vikings', 'Female', 35000),
+('John', 'Stanmore', 'Male', 80000);
+
+select * From Employees; 
+TASK - HIGHEST SALARY
+SELECT Salary
+FROM Employees
+ORDER BY Salary DESC
+Limit 1;
+
+TASK - TOP 3rd SALARY using CTE (Common Table Expressions)
+
+WITH result AS
+(SELECT Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) AS DENSERANK
+FROM Employees)
+SELECT Salary 
+FROM result 
+WHERE result.denserank = 3 
+
+Create Table Departments
+(
+     DepartmentID int primary key,
+     DepartmentName nvarchar(50)
+);
+
+Create Table Employees
+(
+     EmployeeID int primary key,
+     EmployeeName nvarchar(50),
+     DepartmentID int, 
+	 foreign key (DepartmentID) references Departments(DepartmentID)
+);
+
+Insert into Departments 
+values
+	(1, 'IT'),
+	(2, 'HR'),
+	(3, 'Payroll');
+    
+SELECT * from departments
+
+Insert into Employees
+values 
+	(1, 'Mark', 1),
+	(2, 'John', 1),
+	(3, 'Mike', 1),
+	(4, 'Mary', 2),
+	(5, 'Stacy', 3);
+    
+SELECT * from employees
+ 
+TASK - FIND OUT WHICH DEPT HAS THE HIGHEST # OF EMPLOYEES 
+SELECT DepartmentName, COUNT(EmployeeID) as EmployeeCount
+FROM Departments
+JOIN Employees
+ON departments.DepartmentID = employees.DepartmentID
+GROUP by DepartmentName
+ORDER BY EmployeeCount desc;
