@@ -66,10 +66,112 @@ values
     
 SELECT * from employees
  
-TASK - FIND OUT WHICH DEPT HAS THE HIGHEST # OF EMPLOYEES 
+TASK - FIND OUT WHICH DEPT HAS THE HIGHEST # OF EMPLOYEES
+
 SELECT DepartmentName, COUNT(EmployeeID) as EmployeeCount
 FROM Departments
 JOIN Employees
 ON departments.DepartmentID = employees.DepartmentID
 GROUP by DepartmentName
 ORDER BY EmployeeCount desc;
+
+Create Table Departments
+(
+     DepartmentID int primary key,
+     DepartmentName nvarchar(50)
+);
+
+Create Table Employees
+(
+     EmployeeID int primary key,
+     EmployeeName nvarchar(50),
+     DepartmentID int, 
+	 foreign key (DepartmentID) references Departments(DepartmentID)
+);
+
+Insert into Departments 
+values
+	(1, 'IT'),
+	(2, 'HR'),
+	(3, 'Payroll');
+    
+SELECT * from departments
+
+Insert into Employees
+values 
+	(1, 'Mark', 1),
+	(2, 'John', 1),
+	(3, 'Mike', 1),
+	(4, 'Mary', 2),
+	(5, 'Stacy', 3);
+    
+SELECT * from employees
+ 
+--TASK - FIND OUT WHICH DEPT HAS THE HIGHEST # OF EMPLOYEES 
+SELECT DepartmentName, COUNT(EmployeeID) as EmployeeCount
+FROM Departments
+JOIN Employees
+ON departments.DepartmentID = employees.DepartmentID
+GROUP by DepartmentName
+ORDER BY EmployeeCount desc;
+
+
+Insert into Employees
+values (6, 'Valarie', 3);
+
+ALTER TABLE Employees
+ADD Gender int;
+
+SELECT * from employees
+
+Update Employees
+SET Gender =1
+WHERE EmployeeID =1;
+
+Update Employees
+SET Gender =1
+WHERE EmployeeID =2;
+
+Update Employees
+SET Gender =1
+WHERE EmployeeID =3;
+
+Update Employees
+SET Gender =2
+WHERE EmployeeID =4;
+
+Update Employees
+SET Gender =2
+WHERE EmployeeID =5;
+
+Update Employees
+SET Gender =2
+WHERE EmployeeID =6;
+
+SELECT * from employees
+
+Create Table Genders
+(
+     GenderID int primary key,
+     Gender nvarchar(50)
+)
+
+Insert into Genders 
+values 
+	(1, 'Male'),
+	(2, 'Female');
+    
+    TASK - JOIN MULTIPLE TABLES TO PRODUCE ONE RESULT SET
+    
+    SELECT EmployeeName, DepartmentName, Genders.Gender
+    FROM Employees
+    JOIN Departments 
+    ON Employees.DepartmentID = Departments.DepartmentID
+    JOIN Genders
+    ON Employees.Gender = Genders.GenderID
+    
+    
+         
+    
+    
+    
